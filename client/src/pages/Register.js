@@ -1,6 +1,7 @@
 import AuthForm from '../components/AuthForm';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import '../styles/Auth.css';
 
 export default function Register() {
   const navigate = useNavigate();
@@ -12,14 +13,19 @@ export default function Register() {
     }, [navigate]);
 
   return (
-    <div>
-      <AuthForm type="register" onSuccess={() => navigate('/')} />
-      <p>
-        Already have an account?{' '}
-        <button onClick={() => navigate('/')}>
-          Login
-        </button>
-      </p>
+    <div className="auth-container">
+      <div className="auth-card">
+        <AuthForm type="register" onSuccess={() => navigate('/')} />
+        
+        <div className="divider">or</div>
+        
+        <div className="auth-link">
+          Already have an account?{' '}
+          <button onClick={() => navigate('/login')}>
+            Login here
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
