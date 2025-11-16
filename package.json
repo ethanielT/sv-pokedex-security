@@ -24,6 +24,7 @@
     "xss": "^1.0.15"
   },
   "devDependencies": {
-    "concurrently": "^9.2.0"
+    "concurrently": "^9.2.0",
+    "eslint-plugin-security": "^3.0.1"
   }
 }
