@@ -44,7 +44,7 @@ const validateEmail = (email) => {
   return null;
 };
 
-// Register - default role is 'user'
+// Register
 router.post('/register', authLimiter, async (req, res) => {
   const { username, email, password } = req.body;
 
@@ -217,7 +217,7 @@ router.post('/change-password', verifyToken, async (req, res) => {
   }
 });
 
-// Forgot password - send reset token via email (simplified for development)
+// Forgot password
 router.post('/forgot-password', authLimiter, async (req, res) => {
   const { email } = req.body;
 
@@ -228,7 +228,6 @@ router.post('/forgot-password', authLimiter, async (req, res) => {
   try {
     const user = await User.findOne({ email });
     if (!user) {
-      // Don't reveal if email exists for security
       return res.status(200).json({ message: 'If an account exists with that email, a reset link will be sent.' });
     }
 
@@ -240,8 +239,7 @@ router.post('/forgot-password', authLimiter, async (req, res) => {
     user.resetTokenExpires = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
     await user.save();
 
-    // TODO: In production, send email with reset link
-    // For development, we'll log the token (in real app, send via email)
+    // For development, logging the token instead of email
     const resetLink = `http://localhost:3000/reset-password?token=${resetToken}&email=${email}`;
     
     console.log('🔐 Password Reset Link (Development Only):', resetLink);
